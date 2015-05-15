@@ -1,0 +1,31 @@
+﻿@model ShoppingCart.Product
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<p>&nbsp;</p>
+<form role="form" data-toggle="validator" action="/Home/Add" method="post">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-6 col-sm-2"><img class="img-thumbnail img-responsive" src="~/Content/Images/Products/@(Model.productID).jpg" width="50" height="50" /></div>
+            <div class="col-xs-6 col-sm-2">#@Html.DisplayFor(model => model.productID)</div>
+            <div class="col-xs-6 col-sm-2">@Html.DisplayFor(model => model.productName)</div>
+            <div class="col-xs-6 col-sm-2">@string.Format("{0:C}", @Model.price)</div>
+            <div class="col-xs-6 col-sm-2 align-right"><label for="qtyOrdered">Qty:</label></div>
+            <div class="col-xs-6 col-sm-2 align-left form-group">
+                <input type="number" min="1" max="100" class="form-control" id="qtyOrdered" name="qtyOrdered" size="1" value="@ViewBag.qtyOrdered">
+            </div>
+        </div>
+        <p>&nbsp;</p>
+        <div class="container">
+            <div class="row">
+                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                <a href="/Home/Index/"><button type="button" class="btn btn-info btn-sm">Cancel</button></a>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="productID" value="@Model.productID" />
+    <input type="hidden" name="productVisitExist" value="@ViewBag.productVisitExist" />
+</form>

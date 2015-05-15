@@ -1,0 +1,63 @@
+﻿@using ShoppingCart.Helpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title</title>
+    
+    <link href="~/Content/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap/css/sticky-footer.css" rel="stylesheet" /> 
+    <link href="~/Content/Bootstrap/css/neviBar.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/Index/"><img src="~/Content/Images/logo.jpg" height="23" /></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/Home/Index/">Shop</a></li>
+                        @{
+                            var strItem = "item";
+                            var itemCount = HtmlHelpers.OrderCount();
+                            if (itemCount > 1)
+                            {
+                                strItem = "items";
+                            }
+                            <li><a href="/Home/ViewCart/">View Cart <span class="badge">@(itemCount) @(strItem)</span></a></li>
+                        }
+                        
+                    </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">&copy; @DateTime.Now.Year Capilano Mall</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap.js"></script>
+
+</body>
+</html>

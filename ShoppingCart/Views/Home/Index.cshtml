@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ShoppingCart.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2>&nbsp;</h2>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-2"><a href="/Home/Add/@item.productID"><button type="button" class="btn btn-warning">Add to Cart</button></a></div>
+            <div class="col-xs-6 col-sm-2"><img class="img-thumbnail img-responsive" src="~/Content/Images/Products/@(item.productID).jpg" width="50" height="50" /></div>
+
+            <div class="col-xs-6 col-sm-2">#@Html.DisplayFor(modelItem => item.productID)</div>
+            <div class="col-xs-6 col-sm-2">@Html.DisplayFor(modelItem => item.productName)</div>
+            <div class="col-xs-6 col-sm-2">&nbsp;</div>
+            <div class="col-xs-6 col-sm-2">@string.Format("{0:C}", @item.price)</div>
+     
+        </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-2">&nbsp;</div>
+        <div class="col-xs-6 col-sm-2">&nbsp;</div>
+        <div class="col-xs-6 col-sm-2">&nbsp;</div>
+        <div class="col-xs-6 col-sm-2">&nbsp;</div>
+        <div class="col-xs-6 col-sm-2">&nbsp;</div>
+        <div class="col-xs-6 col-sm-2">&nbsp;</div>
+    </div>
+    }
+</div>

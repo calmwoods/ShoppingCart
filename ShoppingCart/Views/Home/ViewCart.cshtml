@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ShoppingCart.ViewModels.ProductOrdered>
+
+@{
+    ViewBag.Title = "ViewCart";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<p>&nbsp;</p>
+<form role="form" data-toggle="validator" action="/Home/SaveOrder/" method="post">
+    <div class="container">
+        @{
+            var subTotal = 0.0;
+            if (ViewBag.orderedCount == 0)
+            {
+                <div class="container">
+                    <div class="alert alert-info text-center" role="alert">
+                        <strong><br />Cart is empty.<br /><br /></strong>
+                    </div>
+                </div>
+            }
+            else
+            {
+                var counter = 0;
+                foreach (var order in Model)
+                {
+                    var ordersProductID = "orders[" + counter + "].ProductID";
+                    var ordersQtyOrdered = "orders[" + counter + "].QtyOrdered";
+
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-1"><a href="/Home/RemoveOrder/@order.ProductID"><u>Remove</u></a></div>
+                        <div class="col-xs-3 col-sm-1 text-right"><img class="img-thumbnail img-responsive" src="~/Content/Images/Products/@(order.ProductID).jpg" width="50" height="50" /></div>
+                        <div class="col-xs-6 col-sm-2">#@order.ProductID</div>
+                        <div class="col-xs-6 col-sm-2">@order.ProductName</div>
+                        <div class="col-xs-6 col-sm-2 align-left form-group">
+                            <input type="hidden" name="@(ordersProductID)" value="@order.ProductID" />
+                            <input type="number" min="1" max="100" class="form-control" name="@(ordersQtyOrdered)" id="qtyOrdered" size="1" value="@order.QtyOrdered">
+                        </div>
+                        <div class="col-xs-6 col-sm-2 text-right">@string.Format("{0:C}", order.Price)</div>
+                        @{
+                    var itemTotal = order.Price * order.QtyOrdered;
+                    subTotal = subTotal + (double)itemTotal;
+                        }
+                        <div class="col-xs-6 col-sm-2 text-right">@string.Format("{0:C}", itemTotal)</div>
+                    </div>
+
+                    counter = counter + 1;
+                }
+                <div class="row">
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"><strong>Sub-total</strong></div>
+                    <div class="col-xs-6 col-sm-2 text-right"><strong>@string.Format("{0:C}", subTotal)</strong></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"><strong>+ 7% Tax</strong></div>
+                    @{ var tax = subTotal * 0.07; }
+                    <div class="col-sm-2 text-right"><strong><u>@string.Format("{0:C}", tax)</u></strong></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"></div>
+                    <div class="col-xs-6 col-sm-2 text-right"><strong>Total</strong></div>
+                    @{ var total = subTotal + tax; }
+                    <div class="col-sm-2 text-right"><strong>@string.Format("{0:C}", total)</strong></div>
+                </div>
+            }
+        }
+    </div>
+    <p>&nbsp;</p>
+    <div class="container">
+        <div class="row">
+            <a href="/Home/Thankyou/"><button type="button" class="btn btn-primary btn-sm">Go to Checkout</button></a>
+            @{
+                if (ViewBag.orderedCount == 0)
+                {
+
+                    <a href="/Home/ViewCart/"><button type="button" class="btn btn-info btn-sm">Save Order</button></a>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-info btn-sm">Save Order</button>
+                }
+            }
+            <a href="/Home/Cancel/"><button type="button" class="btn btn-info btn-sm">Cancel Order</button></a>
+        </div>
+    </div>
+</form>
+<p>&nbsp;</p>

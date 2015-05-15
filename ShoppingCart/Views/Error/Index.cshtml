@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h3>ERROR</h3>
+
+<div class="list-sfs-holder">
+    <div class="alert alert-error">
+    @if (ViewBag.msg != null)
+    {
+        @ViewBag.msg;
+    }
+    </div>
+</div>
+
